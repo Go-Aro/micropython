@@ -33,6 +33,7 @@
 #define DEBUG_printf(...) // printf("nimble (esp32): " __VA_ARGS__)
 
 #include "esp_nimble_hci.h"
+#include "esp_bt.h"
 #include "nimble/nimble_port.h"
 #include "nimble/nimble_port_freertos.h"
 
@@ -47,6 +48,8 @@ STATIC void ble_host_task(void *param) {
 void mp_bluetooth_nimble_port_hci_init(void) {
     DEBUG_printf("mp_bluetooth_nimble_port_hci_init\n");
     esp_nimble_hci_and_controller_init();
+    esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_DEFAULT, ESP_PWR_LVL_N9);
+    esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, ESP_PWR_LVL_N9);
 }
 
 void mp_bluetooth_nimble_port_hci_deinit(void) {
